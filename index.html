@@ -1,0 +1,56 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/styles.css"/>
+    <title>Kingdomer Quiz</title>
+  </head>
+<body>
+  <div id="app" v-bind:style="{ 'background-color': color }">
+    <h1>{{ quiz.title }}</h1>
+    <p style = "text-align: center"> This is a tie-in with a larger comic narrative! If you don't have an answer, just press next! </p>
+    <div v-for="(question,index) in quiz.questions">
+     <div v-show="index === questionIndex">
+      <h2>{{ question.text }}</h2>
+       <ol>
+        <li v-for="response in question.responses">
+        <label class="container">
+          <input type="radio" checked = "checked" name="radio"
+		v-bind:value="response.respond" 
+                v-bind:name="index" 
+                v-model="userResponses[index]"> {{response.text}}
+                <span class="checkmark"></span>
+        </label>
+      </li>
+    </ol>
+   <button class="button button1" v-if="questionIndex > 0" v-on:click="prev">
+        Prev
+      </button>
+      <button class="button button1" v-on:click="next">
+        Next
+      </button>
+   </div>
+   </div>
+   <div v-show="questionIndex === quiz.questions.length">
+    <h2> Results </h2>
+    <div class="container">
+     <div class="sidebar">
+      <p> <img :src="image" /> </p>
+     </div> 
+     <div class="main">
+      <p> Description: {{ description }} </p>
+     </div> 
+     <div class="lower">
+      <p> Result: {{ score() }} </p>
+      <p> Region: {{ region }} </p>
+     </div>  
+     <div class="map">
+      <img src = "/images/map.png" />
+     </div> 
+     </div>
+  </div>
+  </div>
+  <footer> <a href= "https://github.com/BYU-CS260-Winter-2018/lab-2-dizzyflick">Github Link</a> </footer>
+  
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script src="/script.js"></script>
+ </body>
+</html>
